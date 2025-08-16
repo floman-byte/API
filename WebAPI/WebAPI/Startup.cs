@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EFMigrations;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Interface;
+using Infrastructure.Repositories;
+
 namespace WebAPI
 {
     public class Startup
@@ -18,15 +23,17 @@ namespace WebAPI
             //services.AddControllersWithViews();
 
             // Example: Add a database context
-            // services.AddDbContext<ApplicationDbContext>(options =>
-            //     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             services.AddDbContext<MyAppDbContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Example: Add authentication services
             // services.AddAuthentication(options => { /* ... */ });
 
+            //Add repositories and services
+            //services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // Add services to the container.
-            
             services.AddControllers();
             //sere about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
@@ -62,9 +69,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-            //.MapControllers();
-            //
-            //pp.Run();
+         
         }
     }
 }

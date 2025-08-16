@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\EFMigrations\EFMigrations.csproj" />
   </ItemGroup>
 
 </Project>
